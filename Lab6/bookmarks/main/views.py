@@ -30,4 +30,6 @@ def add_link(request):
         tags=request.POST.get("tags","")
         title=request.POST.get("title","")
         #TODO ADD TO database
+        l=Link(title= title, url=url, tags=tags)
+        l.save()
     return redirect(index)
