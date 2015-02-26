@@ -30,6 +30,15 @@ def add_link(request):
         tags=request.POST.get("tags","")
         title=request.POST.get("title","")
         #TODO ADD TO database
-        l=Link(title= title, url=url, tags=tags)
-        l.save()
+	try:
+	    l=Link.objects.create(url=url,title=title)	
+	except:
+	    return redirect(index)
+	tags=tags.split(" ")
+	for tag in tags:
+	    try:
+		new_tag=Tag.objects.get(name=tag);
+	    except:    
+		new_tag=Tag.objects.create(name=tag);
+	    l.tags.add(new_tag)
     return redirect(index)
