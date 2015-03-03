@@ -30,6 +30,8 @@ def add_link(request):
         tags=request.POST.get("tags","")
         title=request.POST.get("title","")
         #TODO ADD TO database
+        if url[0:5]!="http":
+	    url="http://"+url
 	try:
 	    l=Link.objects.create(url=url,title=title)	
 	except:
